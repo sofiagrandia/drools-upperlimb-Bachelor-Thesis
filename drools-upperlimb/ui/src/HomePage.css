@@ -1,0 +1,30 @@
+.HomePage .lander {
+    text-align: center;
+    margin-top: 0px;
+  }
+
+.HomePage .lander h1 {
+    color: #056190;
+    font-size: 70px;
+    font-family: 'Playfair Display', sans-serif;
+    font-weight: 600;
+}
+
+.HomePage .lander p {
+    color: #003550;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.carousel-item .carousel-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.HomePage .lander h5 {
+    color: white;
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 40px;
+}

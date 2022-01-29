@@ -1,0 +1,37 @@
+.btn-space {
+    margin-right: 5px;
+    margin-bottom: 0px;
+}
+
+.color-nav{
+    background-color: #74ACFF;
+
+}
+.navbar{
+    margin-bottom: 0px;
+}
+.navbar .navbar-brand {
+    color: #056190;
+    font-size: 30px;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-weight: 900;
+    margin-left: 20px!important;
+}
+.navbar-nav .nav-link {
+    color: white;
+    font-size: 20px;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    margin: 8px 0;
+}
+
+.navbar .navbar-nav .nav-link {
+    color: #4D6EA0;
+}
+
+.navbar .navbar-nav .nav-link .active {
+    color: white;
+}
+
+.navbar-nav .nav-link .active {
+    color: white;
+}

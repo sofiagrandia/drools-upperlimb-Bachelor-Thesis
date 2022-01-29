@@ -1,0 +1,103 @@
+@import entities.Patient
+
+@(message: String)
+
+
+<link href="https://fonts.googleapis.com/css2?family=Arvo&family=Playfair+Display&family=Zen+Kaku+Gothic+Antique&display=swap" rel="stylesheet">
+<style>
+
+
+input[type=text] {
+  padding:10px;
+  margin:10px 0; // add top and bottom margin
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+
+button, input, select, textarea {
+  font-family : 'Zen Kaku Gothic Antique', sans-serif;
+  font-size   : 100%;
+
+}
+a.btn.btn-primary {
+  margin: auto;
+  font-family : 'Zen Kaku Gothic Antique', sans-serif;
+  font-size: 18px;
+  display: inline-block;
+  border-radius: 20x;
+  background-color: #007bff;
+}
+
+
+h1{
+    text-align: center;
+     color: #056190;
+     font-size: 40px;
+     font-family: 'Playfair Display', sans-serif;
+}
+h2{
+     text-align: center;
+     color: #003550;
+     font-size: 25px;
+     font-family : 'Zen Kaku Gothic Antique', sans-serif;
+     font-weight :300;
+}
+
+p{
+     text-align: center;
+     color: black;
+     font-size: 18px;
+     font-family : 'Zen Kaku Gothic Antique', sans-serif;
+}
+form {
+  position: relative;
+
+  width  : 740px;
+  height : 498px;
+  margin : 0 auto;
+
+}
+.buttonEdit {
+display: inline-block;
+
+    width: 150px!important;
+    height: 25px;
+    background: #007bff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+    justify-content:center;
+align-items:center;
+}
+.buttonDelete {
+    display: inline-block;
+    width: 150px;
+    height: 25px;
+    background: #665C68;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+    justify-content:center;
+align-items:center;
+}
+
+
+</style>
+<html>
+<body>
+<p class="myFunction()"></p>
+
+<script>
+window.onload = function(){
+alert("@message")
+     window.close();
+
+}
+</script>
+</body>
+</html>

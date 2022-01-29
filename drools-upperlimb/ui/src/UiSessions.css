@@ -1,0 +1,41 @@
+.Sessions  {
+    text-align: center;
+    padding: 10px 300px 5px 300px;
+
+  }
+.Sessions h1 {
+    text-align: center;
+    color: #2F343F;
+    font-size: 50px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.Sessions h2  {
+    color: #343F56;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-weight: 200;
+}
+
+.Sessions .button  {
+    position: absolute;
+    right:    0;
+    bottom:   0;
+}
+.Sessions .form-label{
+    text-align: left;
+    font-size: 25px;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-weight: 300;
+}
+
+.Sessions .form{
+    text-align: left;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+
+}
+button.btn {
+  margin-top: auto;
+}

@@ -1,0 +1,184 @@
+package drools
+import entities.Patient;
+import entities.Sess;
+
+rule "Hello World"
+      dialect "mvel"
+  when
+      m : Message( status == Message.HELLO, message : message )
+  then
+      System.out.println( message );
+      modify ( m ) { message = "goodbye, world",
+                     status = Message.GOODBYE };
+      System.out.println( m.getMessage() );
+end
+
+rule "Patient id1"
+      dialect "mvel"
+  when
+      p : Patient(userID=="id1")
+  then
+      System.out.println( "User has id1" );
+
+end
+
+rule "Sess id1"
+      dialect "mvel"
+  when
+      s : Sess(muscAct1<30)
+  then
+      System.out.println( "musact1 < 30" );
+
+end
+
+rule "Biceps Atrophy Assist Correct"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct1)
+      di : DiagInfo(diag=="BA",assist==true,$muscAct<muscComp1, $muscAct>muscComp2)
+  then
+      modify ( r ) { rec = "Proceed with same treatment, same amount of elastics", status=Rec.DONE};
+      System.out.println( "Proceed with same treatment, same amount of elastics" );
+end
+
+rule "Biceps Atrophy Assist High"
+dialect "mvel"
+  when
+      r: Rec(status==Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct1)
+      di : DiagInfo(diag=="BA",assist==true,$muscAct>muscComp1)
+  then
+      modify ( r ) { rec = "Muscular Activity of session:" +s.getMuscAct1 + " Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]"+" Muscular activity too high, reduce number of elastics", status=Rec.DONE };
+      System.out.println("Muscular Activity of session:" +s.getMuscAct1);
+      System.out.println("Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]");
+      System.out.println("Muscular activity too high, reduce number of elastics" );
+end
+
+rule "Biceps Atrophy Assist Low"
+dialect "mvel"
+  when
+      r: Rec(status == Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct1)
+      di : DiagInfo(diag=="BA",assist==true,$muscAct<muscComp2)
+  then
+      modify ( r ) { rec = "Muscular Activity of session:" +s.getMuscAct1+". Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]."+" Muscular activity too low, increase number of elastics",  status=Rec.DONE };
+      System.out.println("Muscular Activity of session:" +s.getMuscAct1);
+      System.out.println("Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]");
+      System.out.println("Muscular activity too low, increase number of elastics" );
+end
+
+
+rule "Biceps Atrophy Resist Correct"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct1)
+      di : DiagInfo(diag=="BA",assist==false,$muscAct>muscComp1, $muscAct<muscComp2)
+  then
+      modify ( r ) { rec = "Proceed with same treatment, same amount of elastics", status=Rec.DONE};
+      System.out.println( "Proceed with same treatment, same amount of elastics" );
+end
+
+rule "Biceps Atrophy Resist High"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct1)
+      di : DiagInfo(diag=="BA",assist==false,$muscAct<muscComp1)
+  then
+      modify ( r ) { rec = "Muscular Activity of session:" +s.getMuscAct1+ ". Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]. " + "Muscular activity too low, increase number of elastics", status=Rec.DONE};
+      System.out.println("Muscular Activity of session:" +s.getMuscAct1);
+      System.out.println("Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]");
+      System.out.println("Muscular activity too low, increase number of elastics" );
+end
+
+rule "Biceps Atrophy Resist Low"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct1)
+      di : DiagInfo(diag=="BA",assist==false,$muscAct>muscComp2)
+  then
+      modify ( r ) { rec = "Muscular Activity of session:" +s.getMuscAct1+ ". Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]" + " Muscular activity too high, decrease number of elastics", status=Rec.DONE};
+      System.out.println("Muscular Activity of session:" +s.getMuscAct1);
+      System.out.println("Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]");
+      System.out.println("Muscular activity too high, reduce number of elastics" );
+end
+
+rule "Triceps Atrophy Assist Correct"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct2)
+      di : DiagInfo(diag=="TA",assist==true,$muscAct>muscComp1, $muscAct<muscComp2)
+  then
+      modify ( r ) { rec = "Proceed with same treatment, same amount of elastics", status=Rec.DONE};
+      System.out.println( "Proceed with same treatment, same amount of elastics" );
+end
+
+rule "Triceps Atrophy Assist High"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct2)
+      di : DiagInfo(diag=="TA",assist==true,$muscAct<muscComp1)
+  then
+      modify ( r ) { rec = "Muscular Activity of session:" +s.getMuscAct2+ ". Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]." + " Muscular activity too low, increase number of elastics", status=Rec.DONE};
+      System.out.println("Muscular Activity of session:" +s.getMuscAct2);
+      System.out.println("Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]");
+      System.out.println("Muscular activity too low, increase number of elastics" );
+end
+
+rule "Triceps Atrophy Assist Low"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct2)
+      di : DiagInfo(diag=="TA",assist==true,$muscAct>muscComp2)
+  then
+      modify ( r ) { rec = "Muscular Activity of session:" +s.getMuscAct2+ ". Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]." + " Muscular activity too high, decrease number of elastics.", status=Rec.DONE};
+      System.out.println("Muscular Activity of session:" +s.getMuscAct2);
+      System.out.println("Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]");
+      System.out.println("Muscular activity too high, reduce number of elastics" );
+end
+
+rule "Triceps Atrophy Resist Correct"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct2)
+      di : DiagInfo(diag=="TA",assist==false,$muscAct<muscComp1, $muscAct>muscComp2)
+  then
+      modify ( r ) { rec = "Procees with same treatment, same number of elastics.", status=Rec.DONE};
+      System.out.println( "Proceed with same treatment, same amount of elastics" );
+end
+
+rule "Triceps Atrophy Resist High"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct2)
+      di : DiagInfo(diag=="TA",assist==false,$muscAct>muscComp1)
+  then
+      modify ( r ) { rec = "Muscular Activity of session:" +s.getMuscAct2+ ". Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]." + " Muscular activity too high, decrease number of elastics.", status=Rec.DONE};
+      System.out.println("Muscular Activity of session:" +s.getMuscAct2);
+      System.out.println("Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]");
+      System.out.println("Muscular activity too high, reduce number of elastics" );
+end
+
+rule "Triceps Atrophy Resist Low"
+dialect "mvel"
+  when
+      r: Rec(status== Rec.INIT, rec: rec)
+      s: Sess($muscAct: muscAct2)
+      di : DiagInfo(diag=="TA",assist==false,$muscAct<muscComp2)
+  then
+      modify ( r ) { rec = "Muscular Activity of session:" +s.getMuscAct2+ ". Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]." + " Muscular activity too low, increase number of elastics.", status=Rec.DONE};
+      System.out.println("Muscular Activity of session:" +s.getMuscAct2);
+      System.out.println("Should be between values" + " [" + di.getMuscComp2 + " , " + di.getMuscComp1 +"]");
+      System.out.println("Muscular activity too low, increase number of elastics" );
+end
+
+
+

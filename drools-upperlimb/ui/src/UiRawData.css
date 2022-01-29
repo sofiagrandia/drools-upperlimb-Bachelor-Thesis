@@ -1,0 +1,20 @@
+
+.lander {
+    text-align: center;
+    margin-top: 0px;
+  }
+.lander h1 {
+    text-align: center;
+    color: #2F343F;
+    font-size: 50px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.lander h2  {
+    color: #343F56;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-weight: 200;
+}

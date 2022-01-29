@@ -1,0 +1,2922 @@
+@import entities.SessDisplay
+
+@(sess: SessDisplay)
+<link href="https://fonts.googleapis.com/css2?family=Arvo&family=Playfair+Display&family=Zen+Kaku+Gothic+Antique&display=swap" rel="stylesheet">
+
+<style>
+input[type=text] {
+padding:10px;
+margin:10px 0; // add top and bottom margin
+box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+
+button, input, select, textarea {
+font-family : 'Zen Kaku Gothic Antique', sans-serif;
+font-size   : 100%;
+
+}
+a.btn.btn-primary {
+margin: auto;
+font-family : 'Zen Kaku Gothic Antique', sans-serif;
+font-size: 18px;
+display: inline-block;
+border-radius: 20x;
+background-color: #007bff;
+}
+
+
+h1{
+text-align: center;
+color: #056190;
+font-size: 40px;
+font-family: 'Playfair Display', sans-serif;
+}
+h2{
+text-align: center;
+color: #003550;
+font-size: 25px;
+font-family : 'Zen Kaku Gothic Antique', sans-serif;
+
+}
+h3{
+text-align: center;
+color: #003550;
+font-size: 22px;
+font-family : 'Zen Kaku Gothic Antique', sans-serif;
+font-weight :300;
+}
+p{
+margin:0;
+padding:3;
+text-align: center;
+color: black;
+font-size: 18px;
+font-family : 'Zen Kaku Gothic Antique', sans-serif;
+}
+form {
+position: relative;
+
+width  : 740px;
+height : 498px;
+margin : 0 auto;
+
+}
+.graph {
+margin: auto;
+padding: 10px;
+text-align: center;
+justify-content:center;
+align-items:center;
+}
+.buttonEdit {
+display: inline-block;
+
+width: 150px!important;
+height: 25px;
+background: #007bff;
+padding: 10px;
+text-align: center;
+border-radius: 5px;
+color: white;
+font-weight: bold;
+line-height: 25px;
+justify-content:center;
+align-items:center;
+}
+.buttonDelete {
+display: inline-block;
+width: 150px;
+height: 25px;
+background: #665C68;
+padding: 10px;
+text-align: center;
+border-radius: 5px;
+color: white;
+font-weight: bold;
+line-height: 25px;
+justify-content:center;
+align-items:center;
+}
+
+
+</style>
+<h1>Sess with ID = @sess.getSessionID</h1>
+<hr>
+<h2>@sess.getUserID </h2>
+<p>Muscular activiy in biceps (%): @sess.getMuscAct1</p>
+<p>Muscular activiy in triceps (%): @sess.getMuscAct2</p>
+<p>Recruitment of muscle fibres in biceps (microV): @sess.getRMS1</p>
+<p>Recruitment of muscle fibres in triceps (microV): @sess.getRMS2</p>
+<p>Maximum reference contraction in biceps (microV): @sess.getMVC1</p>
+<p>Maximum reference contraction in triceps (microV): @sess.getMVC2</p>
+<hr>
+<h2>Results for diagnosis=@sess.getDiag and assisting biceps=@sess.getAs with @sess.getElastics elastics:</h2>
+<h3>@sess.getMessage </h3>
+<hr>
+<p>Please refer to the graph to check where the values should be for each amount of elastics.</p>
+<p>The orange line represents the session's value for the amount of elastics inputed.</p>
+<hr>
+
+</head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      if(@sess.getDiag.equals("BA")&&@sess.getAs==false){
+          if(@sess.getElastics==0){
+            google.charts.setOnLoadCallback(drawChartBiRes0);}else
+          if(@sess.getElastics==1){
+            google.charts.setOnLoadCallback(drawChartBiRes1);}else
+          if(@sess.getElastics==2){
+            google.charts.setOnLoadCallback(drawChartBiRes2);}else
+          if(@sess.getElastics==3){
+            google.charts.setOnLoadCallback(drawChartBiRes3);}else
+          if(@sess.getElastics==4){
+            google.charts.setOnLoadCallback(drawChartBiRes4);}else
+          if(@sess.getElastics==5){
+            google.charts.setOnLoadCallback(drawChartBiRes5);}else
+          if(@sess.getElastics==6){
+            google.charts.setOnLoadCallback(drawChartBiRes6);}else
+          if(@sess.getElastics==7){
+            google.charts.setOnLoadCallback(drawChartBiRes7);}else
+          if(@sess.getElastics==8){
+            google.charts.setOnLoadCallback(drawChartBiRes8);}else
+          if(@sess.getElastics==9){
+            google.charts.setOnLoadCallback(drawChartBiRes9);}else
+          if(@sess.getElastics==10){
+            google.charts.setOnLoadCallback(drawChartBiRes10);}
+        }
+      if(@sess.getDiag.equals("BA")&&@sess.getAs==true){
+            if(@sess.getElastics==0){
+                google.charts.setOnLoadCallback(drawChartBiAs0);}else
+            if(@sess.getElastics==1){
+                google.charts.setOnLoadCallback(drawChartBiAs1);}else
+            if(@sess.getElastics==2){
+                google.charts.setOnLoadCallback(drawChartBiAs2);}else
+            if(@sess.getElastics==3){
+                google.charts.setOnLoadCallback(drawChartBiAs3);}else
+            if(@sess.getElastics==4){
+                google.charts.setOnLoadCallback(drawChartBiAs4);}else
+            if(@sess.getElastics==5){
+                google.charts.setOnLoadCallback(drawChartBiAs5);}else
+            if(@sess.getElastics==6){
+                google.charts.setOnLoadCallback(drawChartBiAs6);}else
+            if(@sess.getElastics==7){
+                google.charts.setOnLoadCallback(drawChartBiAs7);}else
+            if(@sess.getElastics==8){
+                google.charts.setOnLoadCallback(drawChartBiAs8);}else
+            if(@sess.getElastics==9){
+                google.charts.setOnLoadCallback(drawChartBiAs9);}else
+            if(@sess.getElastics==10){
+                google.charts.setOnLoadCallback(drawChartBiAs10);}
+
+    }
+
+    if(@sess.getDiag.equals("TA")&&@sess.getAs==true){
+          if(@sess.getElastics==0){
+            google.charts.setOnLoadCallback(drawChartTriAs0);}else
+          if(@sess.getElastics==1){
+            google.charts.setOnLoadCallback(drawChartTriAs1);}else
+          if(@sess.getElastics==2){
+            google.charts.setOnLoadCallback(drawChartTriAs2);}else
+          if(@sess.getElastics==3){
+            google.charts.setOnLoadCallback(drawChartTriAs3);}else
+          if(@sess.getElastics==4){
+            google.charts.setOnLoadCallback(drawChartTriAs4);}else
+          if(@sess.getElastics==5){
+            google.charts.setOnLoadCallback(drawChartTriAs5);}else
+          if(@sess.getElastics==6){
+            google.charts.setOnLoadCallback(drawChartTriAs6);}else
+          if(@sess.getElastics==7){
+            google.charts.setOnLoadCallback(drawChartTriAs7);}else
+          if(@sess.getElastics==8){
+            google.charts.setOnLoadCallback(drawChartTriAs8);}else
+          if(@sess.getElastics==9){
+            google.charts.setOnLoadCallback(drawChartTriAs9);}else
+          if(@sess.getElastics==10){
+            google.charts.setOnLoadCallback(drawChartTriAs10);}
+          }
+
+    if(@sess.getDiag.equals("TA")&&@sess.getAs==false){
+          if(@sess.getElastics==0){
+            google.charts.setOnLoadCallback(drawChartTriRes0);}else
+          if(@sess.getElastics==1){
+            google.charts.setOnLoadCallback(drawChartTriRes1);}else
+          if(@sess.getElastics==2){
+            google.charts.setOnLoadCallback(drawChartTriRes2);}else
+          if(@sess.getElastics==3){
+            google.charts.setOnLoadCallback(drawChartTriRes3);}else
+          if(@sess.getElastics==4){
+            google.charts.setOnLoadCallback(drawChartTriRes4);}else
+          if(@sess.getElastics==5){
+            google.charts.setOnLoadCallback(drawChartTriRes5);}else
+          if(@sess.getElastics==6){
+            google.charts.setOnLoadCallback(drawChartTriRes6);}else
+          if(@sess.getElastics==7){
+            google.charts.setOnLoadCallback(drawChartTriRes7);}else
+          if(@sess.getElastics==8){
+            google.charts.setOnLoadCallback(drawChartTriRes8);}else
+          if(@sess.getElastics==9){
+            google.charts.setOnLoadCallback(drawChartTriRes9);}else
+          if(@sess.getElastics==10){
+            google.charts.setOnLoadCallback(drawChartTriRes10);}
+            }
+
+
+
+
+      function drawChartBiAs0() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, @sess.getMuscAct1],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs0 = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs0.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs1() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, @sess.getMuscAct1],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs2() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665,  @sess.getMuscAct1],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs3() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, @sess.getMuscAct1],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs4() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, @sess.getMuscAct1],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs5() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, @sess.getMuscAct1],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs6() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025,  @sess.getMuscAct1],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs7() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, @sess.getMuscAct1],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs8() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs9() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, @sess.getMuscAct1],
+          [10, 21.213, 21.713, 20.713, null]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+    function drawChartBiAs10() {
+        var dataBiAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0,  46.90732346,47.40732346,46.40732346, null],
+          [1,  44.39995468,44.89995468,43.89995468, null],
+          [2, 41.86442665,42.36442665,41.36442665, null],
+          [3, 39.29514946,39.79514946,38.79514946, null],
+          [4, 36.68450173,37.18450173,36.18450173, null],
+          [5, 34.02160563,34.52160563,33.52160563, null],
+          [6,  31.525,32.025,31.025, null],
+          [7,  28.9395,29.4395,28.4395, null],
+          [8, 26.364,26.864,25.864, null],
+          [9, 23.7885, 24.2885, 23.2885, null],
+          [10, 21.213, 21.713, 20.713, @sess.getMuscAct1]
+        ]);
+        var optionsBiAs = {
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false,
+                series:{4:{type:'area'}}
+              },
+          title:'Mean Muscle Activity per Elastic Added to Assist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          series: {
+            0: { type:'line',pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { type:'line',color: '#43459d' , lineWidth: 0.8},
+            2: { type:'line',color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 },
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+        };
+        var chartBiAs = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiAs.draw(dataBiAs, optionsBiAs);
+    }
+
+
+    function drawChartBiRes0() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, @sess.getMuscAct1],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+function drawChartBiRes1() {
+
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, @sess.getMuscAct1],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+
+   function drawChartBiRes2() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, @sess.getMuscAct1],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+
+        function drawChartBiRes3() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, @sess.getMuscAct1],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+        function drawChartBiRes4() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, @sess.getMuscAct1],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+
+        function drawChartBiRes5() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, @sess.getMuscAct1],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+
+        function drawChartBiRes6() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, @sess.getMuscAct1],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+
+        function drawChartBiRes7() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, @sess.getMuscAct1],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+        function drawChartBiRes8() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, @sess.getMuscAct1],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+        function drawChartBiRes9() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, @sess.getMuscAct1],
+          [10, 57.058, 57.558, 56.558, null]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+
+        function drawChartBiRes10() {
+        var dataBiRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 46.90732346, 47.40732346, 46.40732346, null],
+          [1, 47.99338659, 48.49338659, 47.49338659, null],
+          [2, 49.03814318, 49.53814318, 48.53814318, null],
+          [3, 50.04479826, 50.54479826, 49.54479826, null],
+          [4, 51.01603971, 51.51603971, 50.51603971, null],
+          [5, 51.95414497, 52.45414497, 51.45414497, null],
+          [6, 53.0228, 53.5228, 52.5228, null],
+          [7, 54.0316, 54.5316, 53.5316, null],
+          [8, 55.0404, 55.5404, 54.5404, null],
+          [9, 56.0492, 56.5492, 55.5492, null],
+          [10, 57.058, 57.558, 56.558, @sess.getMuscAct1]
+        ]);
+
+        var optionsBiRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartBiRes = new google.visualization.ComboChart(document.getElementById('curve_chart'));
+        chartBiRes.draw(dataBiRes, optionsBiRes);}
+
+    function drawChartTriAs0() {
+        var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, @sess.getMuscAct2],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+    function drawChartTriAs1() {
+        var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, @sess.getMuscAct2],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+     function drawChartTriAs2() {
+        var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, @sess.getMuscAct2],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+    function drawChartTriAs3() {
+         var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, @sess.getMuscAct2],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+    function drawChartTriAs4() {
+        var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, @sess.getMuscAct2],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+   function drawChartTriAs5() {
+        var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, @sess.getMuscAct2],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+     function drawChartTriAs6() {
+       var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, @sess.getMuscAct2],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+     function drawChartTriAs7() {
+        var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, @sess.getMuscAct2],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+     function drawChartTriAs8() {
+        var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, @sess.getMuscAct2],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+     function drawChartTriAs9() {
+        var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, @sess.getMuscAct2],
+          [10, 48.784, 49.384, 48.384, null]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+     function drawChartTriAs10() {
+       var dataTriAs = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 16.50603034, 17.00603034, 16.00603034, null],
+          [2, 20.16641789, 20.56641789, 19.56641789, null],
+          [3, 23.72882603, 24.22882603, 23.22882603, null],
+          [4, 27.22765539, 27.72765539, 26.72765539, null],
+          [5, 30.68163041, 31.18163041, 30.18163041, null],
+          [6, 34.4088, 34.9088, 33.9088, null],
+          [7, 38.0026, 38.5026, 37.5026, null],
+          [8, 41.5964, 42.0964, 41.0964, null],
+          [9, 45.1902, 45.5902, 44.5902, null],
+          [10, 48.784, 49.384, 48.384, @sess.getMuscAct2]
+        ]);
+
+        var optionsTriAs = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Asist Flexion in Biceps aka Resist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5}
+          },
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriAs = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriAs.draw(dataTriAs, optionsTriAs);}
+
+
+
+
+
+      function drawChartTriRes0() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, @sess.getMuscAct2],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes1() {
+
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, @sess.getMuscAct2],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes2() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, @sess.getMuscAct2],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes3() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, @sess.getMuscAct2],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes4() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, @sess.getMuscAct2],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes5() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, @sess.getMuscAct2],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes6() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438,  @sess.getMuscAct2],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes7() {
+       var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, @sess.getMuscAct2],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes8() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, @sess.getMuscAct2],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+        function drawChartTriRes9() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, @sess.getMuscAct2],
+          [10, 10.913, 11.413, 10.413, null]
+        ]);
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+
+        function drawChartTriRes10() {
+        var dataTriRes = google.visualization.arrayToDataTable([
+          ['Elastics', 'Mean Muscle Activity', 'Upper range', 'Lower Range', 'Session Value'],
+          [0, 12.67057258, 13.17057258, 12.17057258, null],
+          [1, 12.56973124, 13.06973124, 12.06973124, null],
+          [2, 12.42915838, 12.92915838, 11.92915838, null],
+          [3, 12.24847798, 12.74847798, 11.74847798, null],
+          [4, 12.02524697, 12.52524697, 11.52524697, null],
+          [5, 11.75415011, 12.25415011, 11.25415011, null],
+          [6, 11.6438, 12.1438, 11.1438, null],
+          [7, 11.4611, 11.9611, 10.9611, null],
+          [8, 11.2784, 11.7784, 10.7784, null],
+          [9, 11.0957, 11.5957, 10.5957, null],
+          [10, 10.913, 11.413, 10.413, @sess.getMuscAct2]
+        ]);
+
+
+        var optionsTriRes = {
+        titleTextStyle: {
+                color: '#003550',
+                fontName: 'Playfair Display',
+                fontSize: 25,
+                bold: false,
+                italic: false
+              },
+          title: 'Mean Muscle Activity per Elastic Added to Resist Flexion in Biceps aka Asist Triceps',
+          curveType: 'function',
+          hAxis: {title: 'Number of elastics',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+          vAxis: {title: 'Muscle Activity (%)',
+          titleTextStyle: {
+                color: '#003550',
+                fontName: 'Zen Kaku Gothic Antique',
+                fontSize: 20,
+                bold: false,
+                italic: true
+              }},
+
+          series: {
+            0: { pointSize: 5, pointShape: 'circle', color: '#1c91c0' , lineWidth: 2},
+            1: { color: '#43459d' , lineWidth: 0.8},
+            2: { color: '#6f9654' , lineWidth: 0.8},
+            3: { pointSize: 20, pointShape: 'star', color: '#e7711b' , lineWidth: 1.5 }
+          },
+
+          legend: { position: 'bottom' },
+          explorer: {
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 10.0
+          }
+
+        };
+
+        var chartTriRes = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chartTriRes.draw(dataTriRes, optionsTriRes);}
+
+
+
+    </script>
+
+<body>
+    <div class=graph" style="width: 1300px; height: 600px" id="curve_chart" ></div>
+</body>
+

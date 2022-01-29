@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d65af6aa.chunk.css",
+    "main.js": "/static/js/main.b389b5e5.chunk.js",
+    "main.js.map": "/static/js/main.b389b5e5.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.de714571.js",
+    "runtime~main.js.map": "/static/js/runtime~main.de714571.js.map",
+    "static/css/2.df84d89f.chunk.css": "/static/css/2.df84d89f.chunk.css",
+    "static/js/2.5a56f025.chunk.js": "/static/js/2.5a56f025.chunk.js",
+    "static/js/2.5a56f025.chunk.js.map": "/static/js/2.5a56f025.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.956d89a09aa4a2f65f3241a553891dc6.js": "/precache-manifest.956d89a09aa4a2f65f3241a553891dc6.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.df84d89f.chunk.css.map": "/static/css/2.df84d89f.chunk.css.map",
+    "static/css/main.d65af6aa.chunk.css.map": "/static/css/main.d65af6aa.chunk.css.map",
+    "static/media/AllData.png": "/static/media/AllData.62447e23.png",
+    "static/media/IdData.png": "/static/media/IdData.aabe95a7.png",
+    "static/media/create.png": "/static/media/create.1c646cab.png",
+    "static/media/exo.png": "/static/media/exo.aa032ecb.png",
+    "static/media/exoLogo.png": "/static/media/exoLogo.41254442.png",
+    "static/media/listAllSess.png": "/static/media/listAllSess.d71012d5.png",
+    "static/media/listPatients.png": "/static/media/listPatients.5fc6a090.png",
+    "static/media/newSess.png": "/static/media/newSess.7200eb46.png",
+    "static/media/sessId.png": "/static/media/sessId.64aa942a.png",
+    "static/media/showPatient.png": "/static/media/showPatient.f9a5ff98.png",
+    "static/media/stock4.jpg": "/static/media/stock4.2de2f1aa.jpg",
+    "static/media/stock7.png": "/static/media/stock7.86d82f89.png"
+  }
+}

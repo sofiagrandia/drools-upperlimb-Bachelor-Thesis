@@ -1,0 +1,40 @@
+.About .lander {
+    text-align: center;
+    margin-top: 0px;
+  }
+
+.About .lander h1 {
+    text-align: center;
+    color: #2F343F;
+    font-size: 50px;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.About .lander p {
+    color: #003550;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 22px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align:justify;
+}
+
+.About .lander h2 {
+    color: #003550;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 38px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align:justify;
+}
+
+.carousel-item .carousel-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.About .lander h5 {
+    color: white;
+    font-family: 'Playfair Display', sans-serif;
+    font-size: 40px;
+}
